@@ -329,7 +329,7 @@ test.describe("Pestucci Frondend Test", () => {
 
         let lastDiv = page.locator("//div[@class='asd']")
             await expect(lastDiv).toBeVisible()
-            await expect(lastDiv).toHaveText("Pestucci 2022")
+            await expect(lastDiv).toHaveText("Pestucci 2023")
         })
     })
 

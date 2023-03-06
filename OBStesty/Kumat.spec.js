@@ -540,5 +540,85 @@ test.describe("Kumat Test", () => {
 
   })
 
+  test("Kariéra", async({page}) => {
+    page.goto("https://www.kumat.sk/kariera")
+    test.slow()
+    let bg = page.locator("//div[@class='karierea-img']")
+    await expect(bg).toBeVisible()
+    await expect(bg).toHaveCSS("background-image", "url(\"https://kumat.sk/assets/img/kariera.jpg\")")
+
+    let span1 = page.locator("//span[@class='d-none d-sm-inline']")
+    let span2 = page.locator("//p[@class='kariera-uvod-sub d-none d-sm-block']")
+  
+    await expect(span1).toBeVisible()
+    await expect(span2).toBeVisible()
+    
+    await expect(span1).toHaveText("Pridajte sa k nám")
+    await expect(span2).toHaveText("Pozrite si voľné pozície")
+  
+    let button = page.locator("//button[@id='kariera-scroll']")
+    await expect(button).toBeVisible()
+    await expect(button).toHaveAttribute("href", "#")
+    await expect(button).toHaveText("Voľné pozície")
+
+    await button.click()
+
+    let volnePozicie = page.locator("//h3[@class='kariera-sidebar-title']")
+    await expect(volnePozicie).toBeVisible()
+    await expect(volnePozicie).toHaveText("Voľné pozície")
+
+    let list = page.locator("//ul[@class='kariera-jobs']")
+    await expect(list).toBeVisible()
+
+    let poz1 = page.locator("//html/body/div[4]/div/div/div[1]/ul/li[1]/a")
+    let poz2 = page.locator("//html/body/div[4]/div/div/div[1]/ul/li[2]/a")
+    let poz3 = page.locator("//html/body/div[4]/div/div/div[1]/ul/li[3]/a")
+
+    await expect(poz1).toBeVisible()
+    await expect(poz2).toBeVisible()
+    await expect(poz3).toBeVisible()
+
+    await expect(poz1).toHaveText("Stavbyvedúci")
+    await expect(poz2).toHaveText("Elektromechanik - senior")
+    await expect(poz3).toHaveText("Elektromechanik - junior")
+
+    let reakcia = page.locator("//h3[@class='kariera-sidebar-title kariera-sidebar-reakcia d-none d-sm-block']")
+    let cislo = page.locator("//html/body/div[4]/div/div/div[1]/a[2]")
+    let mail = page.locator("//html/body/div[4]/div/div/div[1]/a[3]")
+
+    await expect(reakcia).toBeVisible()
+    await expect(cislo).toBeVisible()
+    await expect(mail).toBeVisible()
+
+    await expect(reakcia).toHaveText("Reakcia na ponuku")
+    await expect(cislo).toHaveText("+421 (0)2 2029 7818")
+    await expect(mail).toHaveText("kumat@kumat.sk")
+    await expect(cislo).toHaveAttribute("href", "tel:+421 (0)2 2029 7818")
+    await expect(mail).toHaveAttribute("href", "mailto:kumat@kumat.sk")
+
+    let nadpis = page.locator("//html/body/div[4]/div/div/div[2]/h3")
+    let info = page.locator("//html/body/div[4]/div/div/div[2]/p")
+    let jobContent = page.locator("//div[@class='jobcontent jobcontentvisible']")
+
+    await expect(nadpis).toBeVisible()
+    await expect(info).toBeVisible()
+    await expect(jobContent).toBeVisible()
+
+    await expect(nadpis).toHaveText("Stavbyvedúci")
+    await expect(info).toHaveText("Informácie o pracovnom mieste")  
+
+    await poz2.click()
+    await expect(nadpis).toBeVisible()
+    await expect(nadpis).toHaveText("Elektromechanik - senior")
+
+    await poz3.click()
+    await expect(nadpis).toBeVisible()
+    await expect(nadpis).toHaveText("Elektromechanik - junior")
+
+
+
+  })
+
+
 })
 
